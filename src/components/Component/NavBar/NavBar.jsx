@@ -1,17 +1,13 @@
 import { useContext, useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../../../contexts/UserContext.jsx";
 import "./navbar.css";
-import RegisterForm from "../../Forms/RegisterForm/RegisterForm.jsx";
-import LoginForm from "../../Forms/LoginForm/LoginForm.jsx";
-import Dashboard from "../../Views/Dashboard/Dashboard.jsx";
 
 const NavBar = () => {
   const { user, setUser } = useContext(UserContext);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const [showRegister, setShowRegister] = useState(false);
-  const [showLogin, setShowLogin] = useState(false);
+  const [ scrolled, setScrolled ] = useState(false);
+  const navigate = useNavigate()
 
   // Handle scroll effect for navbar
   useEffect(() => {
@@ -36,6 +32,7 @@ const NavBar = () => {
     localStorage.removeItem("token");
     // Close the menu if it's open
     setMenuOpen(false);
+    navigate('/bidhub/home')
   };
 
   const toggleMenu = () => {
@@ -43,12 +40,12 @@ const NavBar = () => {
   };
 
   return (
-<nav className={`nav ${scrolled ? "affix" : ""}`}>
+    <nav className={`nav ${scrolled ? "affix" : ""}`}>
       <div className="logo">
         <Link to="/bidhub/home">
-          <img 
-            src="/Bidhub_Favicon_Logo.jpg" 
-            alt="BidHub Icon" 
+          <img
+            src="/Bidhub_Favicon_Logo.jpg"
+            alt="BidHub Icon"
             className="logo-icon"
           />
           Bidhub
@@ -91,25 +88,21 @@ const NavBar = () => {
           ) : (
             <>
               <li className="nav-bar-link">
-                <Link onClick={() => setShowLogin(!showLogin)}>
+                <Link
+                  to={user ? "/bidhub/home" : "/bidhub/login"}
+                  onClick={() => setMenuOpen(false)}
+                >
                   Login
                 </Link>
               </li>
-              {showLogin && (
-                <div className="modal">
-                  <LoginForm onClose={() => setShowLogin(false)} />
-                </div>
-              )}
               <li className="nav-bar-link">
-                <Link onClick={() => setShowRegister(!showRegister)}>
+                <Link
+                  to={user ? "/bidhub/home" : "/bidhub/register"}
+                  onClick={() => setMenuOpen(false)}
+                >
                   Register
                 </Link>
               </li>
-              {showRegister && (
-                <div className="modal">
-                  <RegisterForm onClose={() => setShowRegister(false)} />
-                </div>
-              )}
             </>
           )}
         </ul>
