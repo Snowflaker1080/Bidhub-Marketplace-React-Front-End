@@ -1,4 +1,4 @@
-gimport { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./hero.css";
 
 const Hero = ({ heroText, seller }) => {
