@@ -1,4 +1,4 @@
-import { Routes, Route, useParams } from "react-router";
+import { Routes, Route } from "react-router-dom";
 import { UserContext } from "./contexts/UserContext";
 import { useContext } from "react";
 import About from "./components/Views/About/About.jsx";
@@ -20,7 +20,6 @@ import AuthRoute from "./components/AuthRoute/AuthRoute.jsx";
 
 const App = () => {
   const { user } = useContext(UserContext);
-  const { sellerId } = useParams();
 
   const paypalOptions = {
     "client-id": import.meta.env.VITE_PAYPAL_CLIENT_ID,
@@ -70,7 +69,7 @@ const App = () => {
             path="/bidhub/seller/:sellerId"
             element={
               <ProtectedRoute>
-                <SellerView sellerId={sellerId} />
+                <SellerView />
               </ProtectedRoute>
             }
           />
@@ -86,7 +85,7 @@ const App = () => {
             path="/bidhub/seller/:sellerId/marketplace"
             element={
               <ProtectedRoute>
-                <ItemList owner={sellerId} />
+                <ItemList />
               </ProtectedRoute>
             }
           />
