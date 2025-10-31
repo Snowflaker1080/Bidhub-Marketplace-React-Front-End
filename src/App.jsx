@@ -80,7 +80,7 @@ function App() {
               path="/seller/:sellerId"
               element={
                 <ProtectedRoute>
-                  <SellerView sellerId={sellerId} />
+                  <SellerView />
                 </ProtectedRoute>
               }
             />
@@ -96,7 +96,7 @@ function App() {
               path="/seller/:sellerId/marketplace"
               element={
                 <ProtectedRoute>
-                  <ItemList owner={sellerId} />
+                  <ItemList />
                 </ProtectedRoute>
               }
             />
