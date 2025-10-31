@@ -6,6 +6,6 @@
   NODE_VERSION = "20"
 
 [[redirects]]
-  from = "/*"
-  to = "/index.html"
+  from = "/bidhub/*"
+  to = "/bidhub/index.html"
   status = 200

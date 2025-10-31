@@ -6,8 +6,8 @@ import "./navbar.css";
 const NavBar = () => {
   const { user, setUser } = useContext(UserContext);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [ scrolled, setScrolled ] = useState(false);
-  const navigate = useNavigate()
+  const [scrolled, setScrolled] = useState(false);
+  const navigate = useNavigate();
 
   // Handle scroll effect for navbar
   useEffect(() => {
@@ -32,7 +32,7 @@ const NavBar = () => {
     localStorage.removeItem("token");
     // Close the menu if it's open
     setMenuOpen(false);
-    navigate('/bidhub/home')
+    navigate("/home");
   };
 
   const toggleMenu = () => {
@@ -42,7 +42,7 @@ const NavBar = () => {
   return (
     <nav className={`nav ${scrolled ? "affix" : ""}`}>
       <div className="logo">
-        <Link to="/bidhub/home">
+        <Link to="/home">
           <img
             src="/Bidhub_Favicon_Logo.jpg"
             alt="BidHub Icon"
@@ -55,13 +55,13 @@ const NavBar = () => {
       <div className={`main_list ${menuOpen ? "show_list" : ""}`}>
         <ul>
           <li className="nav-bar-link">
-            <Link to="/bidhub/about" onClick={() => setMenuOpen(false)}>
+            <Link to="/about" onClick={() => setMenuOpen(false)}>
               About
             </Link>
           </li>
 
           <li className="nav-bar-link">
-            <Link to="/bidhub/marketplace" onClick={() => setMenuOpen(false)}>
+            <Link to="/marketplace" onClick={() => setMenuOpen(false)}>
               Marketplace
             </Link>
           </li>
@@ -69,13 +69,13 @@ const NavBar = () => {
           {user ? (
             <>
               <li className="nav-bar-link">
-                <Link to="/bidhub/home" onClick={() => setMenuOpen(false)}>
+                <Link to="/home" onClick={() => setMenuOpen(false)}>
                   Dashboard
                 </Link>
               </li>
               <li className="nav-bar-link">
                 <Link
-                  to="/bidhub/user/account"
+                  to="/user/account"
                   onClick={() => setMenuOpen(false)}
                 >
                   Account
@@ -89,7 +89,7 @@ const NavBar = () => {
             <>
               <li className="nav-bar-link">
                 <Link
-                  to={user ? "/bidhub/home" : "/bidhub/login"}
+                  to={user ? "/home" : "/bidhub/login"}
                   onClick={() => setMenuOpen(false)}
                 >
                   Login
@@ -97,7 +97,7 @@ const NavBar = () => {
               </li>
               <li className="nav-bar-link">
                 <Link
-                  to={user ? "/bidhub/home" : "/bidhub/register"}
+                  to={user ? "/home" : "/register"}
                   onClick={() => setMenuOpen(false)}
                 >
                   Register
