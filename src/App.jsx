@@ -44,18 +44,12 @@ function App() {
             {/* Root redirects to /home */}
             <Route path="/" element={<Navigate to="/home" replace />} />
 
-            {/* Public routes */}
+            {/* Public routes - ONLY DEFINED ONCE */}
             <Route path="/home" element={user ? <Dashboard /> : <Landing />} />
             <Route path="/about" element={<About />} />
             <Route path="/marketplace" element={<ItemList />} />
 
             {/* Auth routes */}
-            <Route
-              path="/home"
-              element={user ? <Dashboard /> : <Landing />}
-            />
-            <Route path="/about" element={<About />} />
-            <Route path="/marketplace" element={<ItemList />} />
             <Route
               path="/login"
               element={
