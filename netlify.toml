@@ -3,7 +3,7 @@
   publish = "dist"
 
 [build.environment]
-  SECRETS_SCAN_OMIT_KEYS = "VITE_API_URL,VITE_CLOUDINARY_CLOUD_NAME,VITE_CLOUDINARY_FOLDER,VITE_CLOUDINARY_UPLOAD_PRESET,VITE_PAYPAL_CLIENT_ID,VITE_PAYPAL_MODE"
+  secrets_scan_omit_keys = "VITE_API_URL,VITE_CLOUDINARY_CLOUD_NAME,VITE_CLOUDINARY_FOLDER,VITE_CLOUDINARY_UPLOAD_PRESET,VITE_PAYPAL_CLIENT_ID,VITE_PAYPAL_MODE"
 
 # If you need the /bidhub base
 [[redirects]]
@@ -20,5 +20,11 @@
 
 [[redirects]]
   from = "/bidhub/*"
+  to = "/index.html"
+  status = 200
+
+# Single-page app rewrite for all paths
+[[redirects]]
+  from = "/*"
   to = "/index.html"
   status = 200

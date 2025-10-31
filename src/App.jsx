@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { UserContext } from "./contexts/UserContext";
 import { useContext } from "react";
 import About from "./components/Views/About/About.jsx";
@@ -35,6 +35,20 @@ const App = () => {
       </header>
       <main>
         <Routes>
+          {/* Root → /bidhub/home */}
+          <Route path="/" element={<Navigate to="/bidhub/home" replace />} />
+
+          {/* /bidhub (with or without slash) → /bidhub/home */}
+          <Route
+            path="/bidhub"
+            element={<Navigate to="/bidhub/home" replace />}
+          />
+          <Route
+            path="/bidhub/"
+            element={<Navigate to="/bidhub/home" replace />}
+          />
+
+          {/* App routes */}
           <Route
             path="/bidhub/home"
             element={user ? <Dashboard /> : <Landing />}
@@ -97,6 +111,7 @@ const App = () => {
               </ProtectedRoute>
             }
           />
+
           <Route path="*" element={<Page404 />} />
         </Routes>
       </main>
