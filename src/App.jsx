@@ -1,9 +1,4 @@
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-} from "react-router-dom";
+import { Routes, Route, useParams } from "react-router";
 import { UserContext } from "./contexts/UserContext";
 import { useContext } from "react";
 import About from "./components/Views/About/About.jsx";
@@ -23,8 +18,9 @@ import RegisterForm from "./components/Forms/RegisterForm/RegisterForm.jsx";
 import LoginForm from "./components/Forms/LoginForm/LoginForm.jsx";
 import AuthRoute from "./components/AuthRoute/AuthRoute.jsx";
 
-function App() {
+const App = () => {
   const { user } = useContext(UserContext);
+  const { sellerId } = useParams();
 
   const paypalOptions = {
     "client-id": import.meta.env.VITE_PAYPAL_CLIENT_ID,
@@ -34,91 +30,82 @@ function App() {
   };
 
   return (
-    <Router basename="/bidhub">
-      <PayPalScriptProvider options={paypalOptions}>
-        <header>
-          <NavBar />
-        </header>
-        <main>
-          <Routes>
-            {/* Root redirects to /home */}
-            <Route path="/" element={<Navigate to="/home" replace />} />
-
-            {/* Public routes - ONLY DEFINED ONCE */}
-            <Route path="/home" element={user ? <Dashboard /> : <Landing />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/marketplace" element={<ItemList />} />
-
-            {/* Auth routes */}
-            <Route
-              path="/login"
-              element={
-                <AuthRoute>
-                  <LoginForm />
-                </AuthRoute>
-              }
-            />
-            <Route
-              path="/register"
-              element={
-                <AuthRoute>
-                  <RegisterForm />
-                </AuthRoute>
-              }
-            />
-
-            {/* Protected routes */}
-            <Route
-              path="/marketplace/:itemId"
-              element={
-                <ProtectedRoute>
-                  <ItemDetail />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/seller/:sellerId"
-              element={
-                <ProtectedRoute>
-                  <SellerView />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/user/account"
-              element={
-                <ProtectedRoute>
-                  <Account />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/seller/:sellerId/marketplace"
-              element={
-                <ProtectedRoute>
-                  <ItemList />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/checkout"
-              element={
-                <ProtectedRoute>
-                  <PayPalCheckout orderMeta={{}} />
-                </ProtectedRoute>
-              }
-            />
-
-            {/* 404 */}
-            <Route path="*" element={<Page404 />} />
-          </Routes>
-        </main>
-        <footer>
-          <Footer />
-        </footer>
-      </PayPalScriptProvider>
-    </Router>
+    <PayPalScriptProvider options={paypalOptions}>
+      <header>
+        <NavBar />
+      </header>
+      <main>
+        <Routes>
+          <Route
+            path="/bidhub/home"
+            element={user ? <Dashboard /> : <Landing />}
+          />
+          <Route path="/bidhub/about" element={<About />} />
+          <Route path="/bidhub/marketplace" element={<ItemList />} />
+          <Route
+            path="/bidhub/login"
+            element={
+              <AuthRoute>
+                <LoginForm />
+              </AuthRoute>
+            }
+          />
+          <Route
+            path="/bidhub/register"
+            element={
+              <AuthRoute>
+                <RegisterForm />
+              </AuthRoute>
+            }
+          />
+          <Route
+            path="/bidhub/marketplace/:itemId"
+            element={
+              <ProtectedRoute>
+                <ItemDetail />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/bidhub/seller/:sellerId"
+            element={
+              <ProtectedRoute>
+                <SellerView sellerId={sellerId} />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/bidhub/user/account"
+            element={
+              <ProtectedRoute>
+                <Account />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/bidhub/seller/:sellerId/marketplace"
+            element={
+              <ProtectedRoute>
+                <ItemList owner={sellerId} />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/bidhub/checkout"
+            element={
+              <ProtectedRoute>
+                <PayPalCheckout orderMeta={{}} />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="*" element={<Page404 />} />
+        </Routes>
+      </main>
+      <footer>
+        <Footer />
+      </footer>
+    </PayPalScriptProvider>
   );
-}
+};
 
 export default App;
