@@ -1,4 +1,4 @@
-import { Routes, Route, useParams } from "react-router-dom";
+import { Routes, Route, useParams } from "react-router";
 import { UserContext } from "./contexts/UserContext";
 import { useContext } from "react";
 import About from "./components/Views/About/About.jsx";
