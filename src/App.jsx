@@ -25,7 +25,6 @@ import AuthRoute from "./components/AuthRoute/AuthRoute.jsx";
 
 function App() {
   const { user } = useContext(UserContext);
-  const { sellerId } = useParams();
 
   const paypalOptions = {
     "client-id": import.meta.env.VITE_PAYPAL_CLIENT_ID,
@@ -42,14 +41,23 @@ function App() {
         </header>
         <main>
           <Routes>
+            {/* Root path "/" (which is actually /bidhub/ due to basename) redirects to /home */}
+            <Route path="/" element={<Navigate to="/home" replace />} />
+
+            {/* Public routes */}
+            <Route path="/home" element={user ? <Dashboard /> : <Landing />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/marketplace" element={<ItemList />} />
+
+            {/* Auth routes */}
             <Route
-              path="/bidhub/home"
+              path="/home"
               element={user ? <Dashboard /> : <Landing />}
             />
-            <Route path="/bidhub/about" element={<About />} />
-            <Route path="/bidhub/marketplace" element={<ItemList />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/marketplace" element={<ItemList />} />
             <Route
-              path="/bidhub/login"
+              path="/login"
               element={
                 <AuthRoute>
                   <LoginForm />
@@ -57,15 +65,17 @@ function App() {
               }
             />
             <Route
-              path="/bidhub/register"
+              path="/register"
               element={
                 <AuthRoute>
                   <RegisterForm />
                 </AuthRoute>
               }
             />
+
+            {/* Protected routes */}
             <Route
-              path="/bidhub/marketplace/:itemId"
+              path="/marketplace/:itemId"
               element={
                 <ProtectedRoute>
                   <ItemDetail />
@@ -73,7 +83,7 @@ function App() {
               }
             />
             <Route
-              path="/bidhub/seller/:sellerId"
+              path="/seller/:sellerId"
               element={
                 <ProtectedRoute>
                   <SellerView sellerId={sellerId} />
@@ -81,7 +91,7 @@ function App() {
               }
             />
             <Route
-              path="/bidhub/user/account"
+              path="/user/account"
               element={
                 <ProtectedRoute>
                   <Account />
@@ -89,7 +99,7 @@ function App() {
               }
             />
             <Route
-              path="/bidhub/seller/:sellerId/marketplace"
+              path="/seller/:sellerId/marketplace"
               element={
                 <ProtectedRoute>
                   <ItemList owner={sellerId} />
@@ -97,13 +107,15 @@ function App() {
               }
             />
             <Route
-              path="/bidhub/checkout"
+              path="/checkout"
               element={
                 <ProtectedRoute>
                   <PayPalCheckout orderMeta={{}} />
                 </ProtectedRoute>
               }
             />
+
+            {/* 404 */}
             <Route path="*" element={<Page404 />} />
           </Routes>
         </main>

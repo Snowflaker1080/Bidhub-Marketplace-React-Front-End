@@ -5,6 +5,13 @@
 [build.environment]
   NODE_VERSION = "20"
 
+# Redirect root to /bidhub/home
+[[redirects]]
+  from = "/"
+  to = "/bidhub/home"
+  status = 301
+
+# SPA fallback for all /bidhub/* routes
 [[redirects]]
   from = "/bidhub/*"
   to = "/bidhub/index.html"

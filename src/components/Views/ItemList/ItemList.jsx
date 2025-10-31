@@ -5,7 +5,7 @@ import "./itemlist.css";
 import { categories } from "../../../common/utils.js";
 import Hero from "../../Component/Hero/Hero.jsx";
 import Message from "../../Component/Message/Message.jsx";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom"; // ✅ Import here
 import { getUsername } from "../../../services/userService.js";
 
 const ItemList = ({
@@ -22,7 +22,7 @@ const ItemList = ({
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(10); 
+  const [pageSize, setPageSize] = useState(10);
   const [totalCount, setTotalCount] = useState(0);
   const [nextPageUrl, setNextPageUrl] = useState(null);
   const [prevPageUrl, setPrevPageUrl] = useState(null);
@@ -33,11 +33,12 @@ const ItemList = ({
   const [createdSort, setCreatedSort] = useState("none");
   const [seller, setSeller] = useState(null);
   const { sellerId } = useParams();
+  const location = useLocation();
 
   const fetchItems = async () => {
     try {
       const data = await getFilteredItems(
-        hideFilters && !isFiltered() ? "all" : categoryFilter, 
+        hideFilters && !isFiltered() ? "all" : categoryFilter,
         hideFilters && !isFiltered() ? "all" : conditionFilter,
         hideFilters && !isFiltered() ? "none" : endTimeSort,
         hideFilters && !isFiltered() ? "none" : createdSort,
@@ -51,7 +52,7 @@ const ItemList = ({
         page,
         pageSize
       );
-   
+
       setItems(data.results || []);
       setTotalCount(data.count || 0);
       setNextPageUrl(data.next || null);
@@ -277,10 +278,10 @@ const ItemList = ({
                         <ItemCard
                           item={item}
                           key={idx}
-                          onFavoriteToggle={ handleFavoriteToggle }
-                          sold={ sold }
-                          purchased={ purchased }
-                          auctionFailed = {auctionFailed}
+                          onFavoriteToggle={handleFavoriteToggle}
+                          sold={sold}
+                          purchased={purchased}
+                          auctionFailed={auctionFailed}
                         />
                       ))}
                       {items.length < 4 &&
@@ -318,7 +319,7 @@ const ItemList = ({
                         value={pageSize}
                         onChange={(e) => {
                           setPageSize(Number(e.target.value));
-                          setPage(1); 
+                          setPage(1);
                         }}
                         style={{ marginLeft: 8 }}
                       >

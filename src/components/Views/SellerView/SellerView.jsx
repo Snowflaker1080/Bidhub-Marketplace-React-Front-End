@@ -15,7 +15,7 @@ const SellerView = () => {
   const [hasReviewed, setHasReviewed] = useState(false);
   const { sellerId } = useParams();
   const { user } = useContext(UserContext);
-  const [ showItem, setShowItem ] = useState(false);
+  const [showItem, setShowItem] = useState(false);
   const [editingReview, setEditingReview] = useState(null);
 
   const fetchReviews = async () => {

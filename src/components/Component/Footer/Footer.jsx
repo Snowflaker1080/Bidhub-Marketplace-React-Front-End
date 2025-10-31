@@ -7,7 +7,7 @@ const Footer = () => {
       <div className="footer-container">
         <div className="footer-section">
           <div className="footer-logo">
-            <Link to="/">BidHub</Link>
+            <Link to="/home">BidHub</Link>
           </div>
           <p>
             Your premier marketplace for auctions and direct sales. 
@@ -33,7 +33,7 @@ const Footer = () => {
           <h3>Quick Links</h3>
           <ul>
             <li>
-              <Link to="/marketplace/about">About Us</Link>
+              <Link to="/about">About Us</Link>
             </li>
             <li>
               <Link to="/marketplace">Marketplace</Link>
@@ -44,8 +44,14 @@ const Footer = () => {
             <li>
               <Link to="/register">Register</Link>
             </li>
-             <li>
-              <Link to="http://localhost:8000/admin/">Admin</Link>
+            <li>
+              <a 
+                href={import.meta.env.VITE_API_URL + "/admin/"} 
+                target="_blank" 
+                rel="noopener noreferrer"
+              >
+                Admin
+              </a>
             </li>
           </ul>
         </div>
