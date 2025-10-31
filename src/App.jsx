@@ -34,7 +34,7 @@ function App() {
   };
 
   return (
-    <Router>
+    <Router basename="/bidhub">
       <PayPalScriptProvider options={paypalOptions}>
         <header>
           <NavBar />
