@@ -34,14 +34,14 @@ function App() {
   };
 
   return (
-    <Router basename="/bidhub">
+    <Router>
       <PayPalScriptProvider options={paypalOptions}>
         <header>
           <NavBar />
         </header>
         <main>
           <Routes>
-            {/* Root path "/" (which is actually /bidhub/ due to basename) redirects to /home */}
+            {/* Root redirects to /home */}
             <Route path="/" element={<Navigate to="/home" replace />} />
 
             {/* Public routes */}
