@@ -14,10 +14,9 @@ import "../form.css";
 const ItemForm = ({ onClose, item, handleDeleteItem }) => {
   const { user } = useContext(UserContext);
   const navigate = useNavigate();
-  const cloudName = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME || "dxvxebkhe";
-  const uploadPreset =
-    import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET || "web_unsigned";
-  const uploadFolder = import.meta.env.VITE_CLOUDINARY_FOLDER || "bidhub/items";
+  const cloudName = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
+  const uploadPreset = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
+  const uploadFolder = import.meta.env.VITE_CLOUDINARY_FOLDER;
   const cld = useMemo(
     () => new Cloudinary({ cloud: { cloudName } }),
     [cloudName]
